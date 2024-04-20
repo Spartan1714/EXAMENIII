@@ -6,17 +6,16 @@ public class Entrevista {
     private String descripcion;
     private String periodista;
     private String fecha;
+    private String urlAudio;
+    private String urlImagen;
+
+
 
     public Entrevista() {
         // Constructor vacío requerido para Firebase
     }
 
-    public Entrevista(String id, String descripcion, String periodista, String fecha) {
-        this.id = id;
-        this.descripcion = descripcion;
-        this.periodista = periodista;
-        this.fecha = fecha;
-    }
+
 
     public Entrevista(String entrevistaId, String descripcion, String periodista, String fecha, String urlImagen, String urlAudio) {
     }
@@ -51,6 +50,22 @@ public class Entrevista {
     }
 
     public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getUrlImagen() {
+        return fecha;
+    }
+
+    public void setUrlImagen(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getUrlAudio() {
+        return fecha;
+    }
+
+    public void setUrlAudio(String fecha) {
         this.fecha = fecha;
     }
 }

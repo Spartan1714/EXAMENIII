@@ -40,6 +40,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
@@ -47,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
     Button adjuntarImagenButton, adjuntarAudioButton, guardarButton;
     ImageView imageView;
     DatabaseReference databaseReference;
-    StorageReference storageReference;
-    Uri imagenUri, audioUri;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_AUDIO_PICK = 2;
+
+    Uri imagenUri, audioUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +61,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Inicializar Firebase
-        databaseReference = FirebaseDatabase.getInstance().getReference("entrevista");
-        //storageReference = FirebaseStorage.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("entrevista");
 
         // Vincular vistas
         descripcionEditText = findViewById(R.id.descripcionEditText);
@@ -122,15 +123,16 @@ public class MainActivity extends AppCompatActivity {
         // Generar una clave única para la entrevista
         String entrevistaId = databaseReference.push().getKey();
 
-        // Obtener las URLs de la imagen y el audio
-        String urlImagen = obtenerUrlImagen();
-        String urlAudio = obtenerUrlAudio();
-
-        // Crear un objeto Entrevista con los datos y las URLs
-        Entrevista entrevista = new Entrevista(entrevistaId, descripcion, periodista, fecha, urlImagen, urlAudio);
+        // Crear un objeto Map para guardar los datos
+        Map<String, Object> entrevistaMap = new HashMap<>();
+        entrevistaMap.put("descripcion", descripcion);
+        entrevistaMap.put("periodista", periodista);
+        entrevistaMap.put("fecha", fecha);
+        entrevistaMap.put("urlImagen", imagenUri != null ? imagenUri.toString() : ""); // Si imagenUri es null, guardar una cadena vacía
+        entrevistaMap.put("urlAudio", audioUri != null ? audioUri.toString() : ""); // Si audioUri es null, guardar una cadena vacía
 
         // Guardar la entrevista en Firebase Realtime Database
-        databaseReference.child(entrevistaId).setValue(entrevista)
+        databaseReference.child(entrevistaId).setValue(entrevistaMap)
                 .addOnSuccessListener(aVoid -> {
                     // Limpiar los EditText después de guardar la entrevista
                     descripcionEditText.setText("");
@@ -143,30 +145,6 @@ public class MainActivity extends AppCompatActivity {
                     // Manejar errores al guardar en la base de datos
                     Toast.makeText(MainActivity.this, "Error al guardar la entrevista en la base de datos", Toast.LENGTH_SHORT).show();
                 });
-    }
-
-    private String obtenerUrlImagen() {
-        // Reemplazar con la lógica real para obtener la URL de la imagen
-        if (imagenUri != null) {
-            // Aquí se debería subir la imagen a Firebase Storage y obtener la URL de descarga
-            // Por ahora, devolvemos una URL falsa para depuración
-            return "https://ruta-de-la-imagen-en-storage";
-        } else {
-            // Si no se ha seleccionado una imagen, devolvemos null
-            return null;
-        }
-    }
-
-    private String obtenerUrlAudio() {
-        // Reemplazar con la lógica real para obtener la URL del audio
-        if (audioUri != null) {
-            // Aquí se debería subir el audio a Firebase Storage y obtener la URL de descarga
-            // Por ahora, devolvemos una URL falsa para depuración
-            return "https://ruta-del-audio-en-storage";
-        } else {
-            // Si no se ha seleccionado un audio, devolvemos null
-            return null;
-        }
     }
 
     @Override
