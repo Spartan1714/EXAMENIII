@@ -46,7 +46,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     EditText descripcionEditText, periodistaEditText, fechaEditText;
-    Button adjuntarImagenButton, adjuntarAudioButton, guardarButton;
+    Button adjuntarImagenButton, adjuntarAudioButton, guardarButton, verRegistrosButton; // Agregamos el botón verRegistrosButton
     ImageView imageView;
     DatabaseReference databaseReference;
 
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         adjuntarImagenButton = findViewById(R.id.adjuntarImagenButton);
         adjuntarAudioButton = findViewById(R.id.adjuntarAudioButton);
         guardarButton = findViewById(R.id.guardarButton);
+        verRegistrosButton = findViewById(R.id.verRegistrosButton); // Buscamos el botón verRegistrosButton por su id
         imageView = findViewById(R.id.imageView);
 
         // Acción de los botones
@@ -91,6 +92,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 guardarEntrevista();
+            }
+        });
+
+        // Agregamos la acción para el botón verRegistrosButton
+        verRegistrosButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Creamos un Intent para cambiar a la actividad Cargar
+                Intent intent = new Intent(MainActivity.this, Carga.class);
+                startActivity(intent);
             }
         });
     }
@@ -125,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Crear un objeto Map para guardar los datos
         Map<String, Object> entrevistaMap = new HashMap<>();
+       // entrevistaMap.put("entrevistaId", entrevistaId);
         entrevistaMap.put("descripcion", descripcion);
         entrevistaMap.put("periodista", periodista);
         entrevistaMap.put("fecha", fecha);

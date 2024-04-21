@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/descripcionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción"
+        android:padding="16dp" />
+
+    <EditText
+        android:id="@+id/periodistaEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Periodista"
+        android:layout_below="@id/descripcionEditText"
+        android:padding="16dp" />
+
+    <EditText
+        android:id="@+id/fechaEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Fecha"
+        android:layout_below="@id/periodistaEditText"
+        android:padding="16dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="232dp"
+        android:layout_below="@+id/fechaEditText"
+        android:layout_marginTop="41dp"
+        android:adjustViewBounds="true" />
+
+    <!-- Contenedor para los botones de reproducción -->
+    <LinearLayout
+        android:id="@+id/layoutBotonesReproduccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/imageView"
+        android:layout_marginTop="16dp">
+
+        <!-- Botón de reproducir -->
+        <ImageButton
+            android:id="@+id/btnPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_play"
+            android:contentDescription="Reproducir" />
+
+        <!-- Botón de pausar -->
+        <ImageButton
+            android:id="@+id/btnPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_pause"
+            android:contentDescription="Pausar"
+            />
+
+        <!-- Botón de detener -->
+        <ImageButton
+            android:id="@+id/btnStop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Detener" />
+
+    </LinearLayout>
+
+    <!-- Botón para cambiar imagen -->
+    <Button
+        android:id="@+id/btnCambiarImagen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cambiar Imagen"
+        android:layout_below="@id/layoutBotonesReproduccion"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Botón para actualizar datos -->
+    <Button
+        android:id="@+id/btnActualizarDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Actualizar Datos"
+        android:layout_below="@id/btnCambiarImagen"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
